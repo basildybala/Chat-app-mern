@@ -14,6 +14,14 @@ const cors=require('cors')
 
 io.on("connection",(socket)=>{
     console.log("Connected Socket "+socket.id)
+    socket.on("join_room", (data) => {
+        socket.join(data);
+        console.log(`User with ID: ${socket.id} joined room: ${data}`);
+      });
+    socket.on("send_message", (data) => {
+        
+        console.log(data);
+      });
     socket.on("disconnect",()=>{
         console.log(`${socket.id} Disconnected`)
     })
