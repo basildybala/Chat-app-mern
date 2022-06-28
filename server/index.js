@@ -1,7 +1,23 @@
-const app=require('express');
-const httpServer=require("http").createServer(app)
-const io=require('socket.io')(httpServer)
+const express=require('express');
+
+const httpServer=require("http").createServer(express)
+const io=require('socket.io')(httpServer,{
+    cors:{
+        origin:"*",
+        methods:["GET","POST"],
+    },
+})
 const PORT =3001
+const cors=require('cors')
+
+
+
+io.on("connection",(socket)=>{
+    console.log("Connected Socket "+socket.id)
+    socket.on("disconnect",()=>{
+        console.log(`${socket.id} Disconnected`)
+    })
+})
 
 
 httpServer.listen(PORT,()=>{
